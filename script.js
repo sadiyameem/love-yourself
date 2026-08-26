@@ -2,7 +2,6 @@ let confetti;
 
 function startLove() {
     const start = document.getElementById("heart");
-    const audio = document.getElementById("heartSound");
 
     audio.volume = 0.9;
     audio.play();
@@ -30,6 +29,7 @@ function startLove() {
 
 const canvas = document.getElementById('heartCanvas');
 const ctx = canvas.getContext('2d');
+const audio = document.getElementById("heartSound");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -78,6 +78,8 @@ function getHeartPoint(t) {
 window.addEventListener('mousedown', (e) => {
     clicked = true;
     particles = [];
+    audio.currentTime = 0;
+    audio.play();
     current = (current + 60) % 360;
     bgColor = `hsla(${current}, 30%, 10%, 1)`;
 
@@ -90,8 +92,6 @@ window.addEventListener('mousedown', (e) => {
 function animate() {
     ctx.fillStyle = bgColor;
     ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    ctx.fillStyle = 'rgba(0,0,0,0.1)';
     ctx.fillRect(0,0,canvas.width,canvas.height);
 
     particles.forEach((p,index) => {
@@ -100,11 +100,10 @@ function animate() {
         if (p.alpha <= 0) particles.splice(index, 1);
     });
 
-    if (clicked) {
-        ctx.fillStyle = "white";
-        ctx.font = "bold 24px Arial";
-        ctx.textAlign = "center";
-        ctx.fillText("Click to see a surprise", canvas.width / 2, canvas.height / 2);
+    if (particles.length === 0 && clicked) {
+        audio.pause();
+        audio.currentTime = 0;
+        clicked = false;
     }
 
     requestAnimationFrame(animate);
