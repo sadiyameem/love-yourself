@@ -115,3 +115,23 @@ window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
+
+let btn = document.getElementById('btn');
+let output = document.getElementById('output');
+let quotes = [
+    "Give You a Sense of Kindness and Understanding Toward Yourself.",
+    "Make You More Productive.",
+    "Keep Your Anxiety and Depression Symptoms Under Control.",
+    "Create a Happier You.",
+    "Boost Your Confidence and Outlook on Life.",
+    "Help You Achieve Your Goals.",
+    "Free Yourself From Any Comparisons You May Have.",
+    "Allow You to Live Your Life Align With Your Values.",
+    "Give You a Chance to Inspire Others to Change Their Lives for the Better.",
+    "Strengthen Your Decision-Making Process.",
+];
+
+btn.addEventListener('click', function() {
+    var randomQuote = quotes[Math.floor(Math.random() * quotes.length)]
+    output.innerHTML = randomQuote;
+})
